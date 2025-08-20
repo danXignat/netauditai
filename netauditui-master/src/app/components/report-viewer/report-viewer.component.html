@@ -1,0 +1,95 @@
+<nz-card nzTitle="Network Device Scanner" [nzBodyStyle]="{ padding: '24px' }">
+
+  <div class="selected-device-info" *ngIf="selectedDevice; else noDeviceSelected">
+    <div class="device-info-card">
+      <span class="device-label">
+        <span nz-icon nzType="check-circle" style="color: #52c41a;"></span>
+         Selected Device: </span>
+      <strong>{{ selectedDevice.device }}</strong>
+      <span class="device-details"> ({{ selectedDevice.username }}&#64;{{ selectedDevice.ip }})</span>
+    </div>
+  </div>
+
+  <ng-template #noDeviceSelected>
+    <div class="no-device-selected">
+      <span nz-icon nzType="exclamation-circle" class="warning-icon"></span>
+      <span> Please select a device from the list to start scanning</span>
+    </div>
+  </ng-template>
+
+  <div class="scan-controls" *ngIf="selectedDevice">
+
+    <div class="private-key-section">
+      <h4>SSH Private Key (RSA)</h4>
+      <input
+        type="file"
+        accept="*/*"
+        (change)="onPrivateKeyFileChange($event)"
+        #fileInput
+        style="margin-bottom: 8px;"
+      />
+      <div class="key-upload-help">
+        <small>Upload your SSH private key file</small>
+        <div *ngIf="privateKeyLoaded" class="key-loaded-indicator">
+          <span nz-icon nzType="check-circle" style="color: #52c41a;"></span>
+          Private key loaded successfully
+        </div>
+      </div>
+    </div>
+
+    <div class="sudo-password-section" style="margin-top: 16px;">
+      <h4>Sudo Password</h4>
+      <nz-form-item style="margin-bottom: 0;">
+        <nz-form-control>
+          <input
+            nz-input
+            type="password"
+            placeholder="Enter sudo password for {{ selectedDevice.username }}"
+            [(ngModel)]="sudoPassword"
+            (ngModelChange)="onSudoPasswordChange($event)"
+            [disabled]="loading"
+            autocomplete="off"
+          />
+          <small style="color: #666; margin-top: 4px; display: block;">
+            This password will not be stored and is only used for this scan session
+          </small>
+          <div *ngIf="sudoPassword.trim().length > 0" class="status-item" style="margin-top: 8px;">
+            <span nz-icon nzType="check-circle" style="color: #52c41a;"></span>
+            <span style="margin-left: 4px;">Sudo password provided</span>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div class="scan-button-section" style="margin-top: 24px;">
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="default"
+        [nzLoading]="loading"
+        [disabled]="!isFormValid || loading"
+        (click)="onSubmit()"
+      >
+        <span nz-icon nzType="search"></span>
+        {{ loading ? 'Scanning...' : 'Start Scan' }}
+      </button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="result && result.results">
+    <nz-divider nzText="Scan Results"></nz-divider>
+    <div class="results-section">
+      <nz-card
+        *ngFor="let key of getKeys(result.results)"
+        [nzTitle]="formatResultTitle(key)"
+        nzSize="small"
+        class="result-card"
+        [nzBodyStyle]="{ padding: '12px' }"
+      >
+        <div class="json-content">
+          <pre class="command-output" [innerHTML]="isPacketTracerResult(key) ? formatPacketTracerOutput(result.results[key]) : formatJsonOutput(result.results[key])"></pre>
+        </div>
+      </nz-card>
+    </div>
+  </ng-container>
+</nz-card>

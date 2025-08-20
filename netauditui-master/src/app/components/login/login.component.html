@@ -1,0 +1,143 @@
+<div class="auth-container">
+  <nz-card class="auth-card" [nzTitle]="isLoginMode ? 'Login' : 'Register'">
+
+  <img [src]="logoSrc" alt="Logo" style="position: absolute; top: 10px; right: 10px; height: 37px; z-index: 1;"/>
+
+    <form *ngIf="isLoginMode" nz-form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(loginForm, 'email')">
+          <input
+            nz-input
+            formControlName="email"
+            placeholder="Enter your email"
+            [nzStatus]="isFieldInvalid(loginForm, 'email') ? 'error' : ''"
+            type="email">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(loginForm, 'password')">
+          <input
+            nz-input
+            formControlName="password"
+            placeholder="Enter your password"
+            [nzStatus]="isFieldInvalid(loginForm, 'password') ? 'error' : ''"
+            type="password">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <label nz-checkbox formControlName="rememberMe">Remember me</label>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <button
+            nz-button
+            nzType="primary"
+            nzBlock
+            [nzLoading]="isLoading"
+            [disabled]="loginForm.invalid">
+            Login
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
+    <form *ngIf="!isLoginMode" nz-form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>First Name</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(registerForm, 'firstName')">
+          <input
+            nz-input
+            formControlName="firstName"
+            placeholder="Enter your first name"
+            [nzStatus]="isFieldInvalid(registerForm, 'firstName') ? 'error' : ''"
+            type="text">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Last Name</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(registerForm, 'lastName')">
+          <input
+            nz-input
+            formControlName="lastName"
+            placeholder="Enter your last name"
+            [nzStatus]="isFieldInvalid(registerForm, 'lastName') ? 'error' : ''"
+            type="text">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Email</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(registerForm, 'email')">
+          <input
+            nz-input
+            formControlName="email"
+            placeholder="Enter your email"
+            [nzStatus]="isFieldInvalid(registerForm, 'email') ? 'error' : ''"
+            type="email">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(registerForm, 'password')">
+          <input
+            nz-input
+            formControlName="password"
+            placeholder="Enter your password"
+            [nzStatus]="isFieldInvalid(registerForm, 'password') ? 'error' : ''"
+            type="password">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="24" nzRequired>Confirm Password</nz-form-label>
+        <nz-form-control [nzSpan]="24" [nzErrorTip]="getErrorMessage(registerForm, 'confirmPassword')">
+          <input
+            nz-input
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+            [nzStatus]="isFieldInvalid(registerForm, 'confirmPassword') ? 'error' : ''"
+            type="password">
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="24">
+          <button
+            nz-button
+            nzType="primary"
+            nzBlock
+            [nzLoading]="isLoading"
+            [disabled]="registerForm.invalid">
+            Register
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
+    <div class="toggle-section">
+      <nz-divider nzText="or"></nz-divider>
+      <button
+        nz-button
+        nzType="link"
+        nzBlock
+        (click)="toggleMode()"
+        [disabled]="isLoading">
+        {{ isLoginMode ? "Don't have an account? Register" : "Already have an account? Login" }}
+      </button>
+    </div>
+
+  </nz-card>
+</div>

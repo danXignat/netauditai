@@ -1,0 +1,124 @@
+.dashboard-layout {
+  min-height: 100vh;
+  min-width: 600px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .dashboard-title {
+    margin: 0;
+    color: white;
+  }
+
+  .user-section {
+    .user-clickable {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .user-name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: white;
+    }
+  }
+}
+
+.dashboard-content {
+  max-width: 1280px;
+  margin: 50px auto 50px;
+  padding: 24px;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: calc(100vh - 200px);
+}
+
+.device-section {
+  flex: 0 0 auto;
+  width: 400px;
+  max-width: 400px;
+}
+
+.analysis-section {
+  flex: 0 0 auto;
+  width: 800px;
+  min-width: 800px;
+  max-width: 800px;
+}
+
+@media (max-width: 1320px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .device-section {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .analysis-section {
+    width: 100%;
+    max-width: 800px;
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 16px;
+    margin: 24px auto;
+  }
+
+  .header-content {
+    padding: 0 16px;
+
+    .dashboard-title {
+      font-size: 18px;
+    }
+
+    .user-name {
+      font-size: 14px;
+    }
+  }
+
+  .device-section,
+  .analysis-section {
+    min-width: 280px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    .user-name span:not(.anticon) {
+      display: none;
+    }
+  }
+
+  .device-section,
+  .analysis-section {
+    min-width: 240px;
+  }
+}

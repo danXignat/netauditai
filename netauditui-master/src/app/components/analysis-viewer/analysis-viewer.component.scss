@@ -1,0 +1,114 @@
+.analysis-loading {
+  text-align: center;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ::ng-deep .ant-spin-dot-item {
+    background-color: rgba(24, 144, 255, 0.6) !important;
+  }
+}
+
+.analysis-error {
+  margin-bottom: 24px;
+}
+
+.analysis-results {
+  .analysis-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0;
+
+    h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .analysis-content {
+    line-height: 1.8;
+    color: #262626;
+
+    h1, h2, h3 {
+      color: #1890ff;
+      margin: 24px 0 16px 0;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: 24px;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin-top: 32px;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-top: 24px;
+    }
+
+    strong {
+      color: #262626;
+      font-weight: 600;
+    }
+
+    em {
+      color: #595959;
+      font-style: italic;
+    }
+
+    .numbered-item {
+      margin: 12px 0;
+      padding: 8px 16px;
+      background: #f6ffed;
+      border-left: 4px solid #52c41a;
+      border-radius: 4px;
+
+      &::before {
+        content: counter(item) '. ';
+        counter-increment: item;
+        font-weight: 600;
+        color: #52c41a;
+      }
+    }
+
+    .bullet-item {
+      margin: 8px 0;
+      padding: 6px 12px;
+      background: #fafafa;
+      border-left: 3px solid #d9d9d9;
+      border-radius: 2px;
+      color: #262626;
+    }
+
+    counter-reset: item;
+  }
+}
+
+.analysis-empty {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .analysis-results {
+    .analysis-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .analysis-content {
+      font-size: 14px;
+    }
+  }
+}

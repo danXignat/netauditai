@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  connector:
+    build:
+      context: ./connector-agent
+      dockerfile: setup/Dockerfile
+    container_name: connector-agent
+    ports:
+      - "8000:8000"
+
+  analyzer:
+    build:
+      context: ./analyzer-agent
+      dockerfile: setup/Dockerfile
+    container_name: analyzer-agent
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./analyzer-agent/env/.env

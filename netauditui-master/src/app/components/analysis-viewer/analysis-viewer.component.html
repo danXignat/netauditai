@@ -1,0 +1,62 @@
+<nz-card nzTitle="Analysis Dashboard" [nzBodyStyle]="{ padding: '24px' }">
+
+  <div *ngIf="isAnalyzing" class="analysis-loading">
+    <nz-spin nzSize="large">
+      <div style="text-align: center; padding: 40px;">
+        <h3 style="margin-top: 16px;">Analyzing Scan Results</h3>
+        <p style="color: #666;">AI is processing your network scan data...</p>
+      </div>
+    </nz-spin>
+  </div>
+
+  <div *ngIf="analysisError && !isAnalyzing" class="analysis-error">
+    <nz-alert
+      nzType="error"
+      nzShowIcon
+      [nzMessage]="'Analysis Failed'"
+      [nzDescription]="analysisError"
+      nzCloseable
+      (nzOnClose)="analysisError = null">
+    </nz-alert>
+  </div>
+
+  <div *ngIf="hasAnalysisContent() && !isAnalyzing" class="analysis-results">
+    <div class="analysis-header">
+      <h3>
+        <span nz-icon nzType="check-circle" style="color: #52c41a; margin-right: 8px;"></span>
+        Security Analysis Report
+      </h3>
+      <button
+        nz-button
+        nzType="default"
+        nzSize="small"
+        (click)="clearAnalysis()"
+        style="margin-left: auto;">
+        <span nz-icon nzType="close"></span>
+        Clear
+      </button>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div class="analysis-content" [innerHTML]="formatAnalysisText(analysisResult!)">
+    </div>
+  </div>
+
+  <div *ngIf="!hasAnalysisContent() && !isAnalyzing && !analysisError" class="analysis-empty">
+    <nz-empty
+      nzNotFoundImage="simple"
+      [nzNotFoundContent]="'No analysis available'">
+      <ng-container nzNotFoundFooter>
+        <p style="color: #666; margin-bottom: 16px;">
+          Complete a network scan to generate an AI-powered security analysis report.
+        </p>
+        <button nz-button nzType="default" disabled>
+          <span nz-icon nzType="robot"></span>
+          Waiting for Scan Results
+        </button>
+      </ng-container>
+    </nz-empty>
+  </div>
+
+</nz-card>

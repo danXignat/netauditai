@@ -1,0 +1,117 @@
+<!-- Floating Chat Button -->
+<button
+  *ngIf="!isExpanded"
+  nz-button
+  nzType="primary"
+  nzShape="circle"
+  nzSize="large"
+  class="chat-trigger-btn"
+  nz-tooltip="AI Assistant"
+  nzTooltipPlacement="left"
+  (click)="toggleChat()">
+  <span nz-icon nzType="robot" nzTheme="outline"></span>
+</button>
+
+<!-- Chat Window -->
+<nz-card
+  *ngIf="isExpanded"
+  class="chat-window"
+  [ngClass]="{ 'closing': isClosing }"
+  nzSize="small"
+  [nzBodyStyle]="{ padding: '0', height: '100%', display: 'flex', 'flex-direction': 'column' }">
+
+  <!-- Chat Header -->
+  <div slot="title" class="chat-header">
+    <div class="chat-header-content">
+      <span nz-icon nzType="robot" class="chat-header-icon"></span>
+      <span class="chat-title">AI Assistant</span>
+    </div>
+    <div class="chat-header-actions">
+      <button
+        nz-button
+        nzType="text"
+        nzSize="small"
+        nz-tooltip="New Chat"
+        (click)="startNewChat()">
+        <span nz-icon nzType="plus"></span>
+      </button>
+      <button
+        nz-button
+        nzType="text"
+        nzSize="small"
+        nz-tooltip="Close"
+        (click)="closeChat()">
+        <span nz-icon nzType="close"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages Container -->
+  <div class="messages-container" #messagesContainer>
+    <div class="messages-list">
+      @for (message of messages; track message.id) {
+        <div class="message-wrapper" [ngClass]="'message-' + message.role">
+
+          <!-- User Message -->
+          @if (message.role === 'user') {
+            <div class="message message-user">
+              <div class="message-content">
+                {{ message.content }}
+              </div>
+              <div class="message-time">
+                {{ formatTimestamp(message.timestamp) }}
+              </div>
+            </div>
+          }
+
+          <!-- Assistant Message -->
+          @if (message.role === 'assistant') {
+            <div class="message message-assistant">
+              <div class="message-avatar">
+                <span nz-icon nzType="robot" nzTheme="outline"></span>
+              </div>
+              <div class="message-bubble">
+                @if (message.isLoading) {
+                  <div class="message-loading">
+                    <nz-spin nzSize="small"></nz-spin>
+                    <span style="margin-left: 8px;">Thinking...</span>
+                  </div>
+                } @else {
+                  <div class="message-content">{{ message.content }}</div>
+                  <div class="message-time">{{ formatTimestamp(message.timestamp) }}</div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="chat-input-area">
+    <nz-input-group [nzSuffix]="sendBtnTemplate" class="chat-input-group">
+      <input
+        #messageInput
+        nz-input
+        [(ngModel)]="currentMessage"
+        (keypress)="onKeyPress($event)"
+        [disabled]="isLoading"
+        placeholder="Type your message..."
+        class="chat-input" />
+    </nz-input-group>
+
+    <ng-template #sendBtnTemplate>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="small"
+        [nzLoading]="isLoading"
+        [disabled]="!currentMessage.trim() || isLoading"
+        (click)="sendMessage()">
+        <span nz-icon nzType="send" *ngIf="!isLoading"></span>
+      </button>
+    </ng-template>
+  </div>
+
+</nz-card>

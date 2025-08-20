@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  chatbot:
+    build:
+      context: ./
+      dockerfile: setup/Dockerfile
+    container_name: netauditchatbot
+    ports:
+      - "8003:8003"
+    env_file:
+      - env/.env

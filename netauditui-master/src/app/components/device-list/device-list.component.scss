@@ -1,0 +1,70 @@
+.device-list-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.device-list-header {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.report-viewer-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-row {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.custom-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #8c8c8c;
+
+  .empty-icon {
+    font-size: 48px;
+    color: #d9d9d9;
+    margin-bottom: 8px;
+  }
+
+  h3 {
+    margin: 0;
+    color: #262626;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+    color: #8c8c8c;
+    font-size: 14px;
+  }
+}
+
+::ng-deep {
+  .ant-table-tbody > tr > td {
+    vertical-align: middle;
+  }
+
+  .ant-radio-wrapper {
+    margin: 0;
+  }
+
+  // Center the Actions column content
+  .ant-table-thead > tr > th:last-child,
+  .ant-table-tbody > tr > td:last-child {
+    text-align: center;
+  }
+}
+
+::ng-deep .ant-empty,
+::ng-deep .ant-table-placeholder {
+  display: none !important;
+}

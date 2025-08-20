@@ -1,0 +1,48 @@
+.app-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+}
+
+.loading-placeholder {
+  padding: 40px;
+}
+
+.loading-placeholder h1 {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.5px;
+}
+
+.loading-placeholder p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 16px;
+  margin: 0;
+}
+
+.main-content {
+  height: 100vh;
+  width: 100vw;
+}
+
+::ng-deep .ant-spin-lg .ant-spin-dot {
+  font-size: 32px;
+}
+
+::ng-deep .ant-spin-lg .ant-spin-dot i {
+  background-color: white;
+}

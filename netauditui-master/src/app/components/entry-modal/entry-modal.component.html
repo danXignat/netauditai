@@ -1,0 +1,49 @@
+<nz-modal
+  [nzVisible]="visible"
+  [nzTitle]="modalTitle"
+  [nzOkText]="okText"
+  [nzCancelText]="'Cancel'"
+  [nzOkLoading]="loading"
+  [nzOkDisabled]="entryForm.invalid"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  (nzVisibleChange)="visibleChange.emit($event)"
+  nzWidth="600px">
+
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="entryForm" nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-label nzRequired>Device</nz-form-label>
+        <nz-form-control [nzErrorTip]="getErrorMessage('device')">
+          <input
+            nz-input
+            formControlName="device"
+            placeholder="Device name"
+            [nzStatus]="isFieldInvalid('device') ? 'error' : ''" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Username</nz-form-label>
+        <nz-form-control [nzErrorTip]="getErrorMessage('username')">
+          <input
+            nz-input
+            formControlName="username"
+            placeholder="SSH username"
+            [nzStatus]="isFieldInvalid('username') ? 'error' : ''" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>IP Address</nz-form-label>
+        <nz-form-control [nzErrorTip]="getErrorMessage('ip')">
+          <input
+            nz-input
+            formControlName="ip"
+            placeholder="192.168.1.1"
+            [nzStatus]="isFieldInvalid('ip') ? 'error' : ''" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

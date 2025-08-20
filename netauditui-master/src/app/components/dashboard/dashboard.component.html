@@ -1,0 +1,52 @@
+<nz-layout class="dashboard-layout">
+  <nz-header class="dashboard-header">
+    <div class="header-content">
+      <span style="display:inline-flex; align-items: center;">
+        <img src="assets/logo_small.png" style="height: 40px; margin-right: 10px;" alt="Logo" />
+        <h1 class="dashboard-title">Dashboard</h1>
+      </span>
+      <div class="user-section">
+        <div nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" class="user-clickable">
+          @if (currentUser && currentUser.displayName) {
+            <nz-avatar [nzText]="currentUser.displayName.charAt(0)" nzSize="small"></nz-avatar>
+          } @else {
+            <nz-avatar nzText="U" nzSize="small"></nz-avatar>
+          }
+          <span class="user-name">
+            {{ currentUser?.displayName }}
+            <span nz-icon nzType="down"></span>
+          </span>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable="false">
+            <li nz-menu-item (click)="navigateToAccount()">
+              <span nz-icon nzType="setting"></span>
+              Account Settings
+            </li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="signOut()">
+              <span nz-icon nzType="logout"></span>
+              Sign Out
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="dashboard-content">
+    <div class="content-wrapper">
+      <div class="device-section">
+        <nz-card [nzBodyStyle]="{ padding: '16px' }">
+          <app-device-list></app-device-list>
+        </nz-card>
+      </div>
+
+      <div class="analysis-section">
+        <app-analysis-viewer></app-analysis-viewer>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>
+
+<app-assistant></app-assistant>

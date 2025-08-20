@@ -1,0 +1,60 @@
+:host ::ng-deep .command-output {
+  background: #f8f9fa;
+  color: #212529;
+  border: 1px solid #e9ecef;
+  padding: 16px;
+  border-radius: 6px;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  max-height: 500px;
+  overflow-y: auto;
+
+  .json-key {
+    color: #0366d6 !important;
+    font-weight: 600 !important;
+  }
+
+  .json-string {
+    color: #032f62 !important;
+  }
+
+  .json-ip {
+    color: #4a2c17 !important;
+    font-weight: 500 !important;
+    background: rgba(74, 44, 23, 0.1) !important;
+    padding: 1px 3px !important;
+    border-radius: 3px !important;
+  }
+
+  .json-security-clear {
+    color: #28a745 !important;
+    font-weight: 600 !important;
+    background: rgba(40, 167, 69, 0.15) !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+  }
+
+  .json-security-suspicious {
+    color: #dc3545 !important;
+    font-weight: 600 !important;
+    background: rgba(220, 53, 69, 0.15) !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+  }
+
+  .json-number {
+    color: #005cc5 !important;
+  }
+
+  .json-boolean {
+    color: #d73a49 !important;
+  }
+
+  .json-null {
+    color: #6f42c1 !important;
+  }
+}

@@ -1,0 +1,158 @@
+<nz-layout class="account-layout">
+  <nz-header class="account-header">
+    <div class="header-content">
+      <span style="display:inline-flex; align-items: center;">
+        <img
+          src="assets/logo_small.png"
+          style="height: 40px; margin-right: 10px; cursor: pointer; transition: transform 0.2s ease;"
+          alt="Logo"
+          class="clickable-logo"
+          (click)="navigateToDashboard()" />
+        <h1 class="account-title">Account Settings</h1>
+      </span>
+      <div class="user-section">
+        <div nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click" class="user-clickable">
+          @if (currentUser && currentUser.displayName) {
+            <nz-avatar [nzText]="currentUser.displayName.charAt(0)" nzSize="small"></nz-avatar>
+          } @else {
+            <nz-avatar nzText="U" nzSize="small"></nz-avatar>
+          }
+          <span class="user-name">
+            {{ currentUser?.displayName }}
+            <span nz-icon nzType="down"></span>
+          </span>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable="false">
+            <li nz-menu-item (click)="signOut()">
+              <span nz-icon nzType="logout"></span>
+              Sign Out
+            </li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </nz-header>
+
+  <nz-content class="account-content">
+    <div class="content-wrapper">
+      <div class="form-container">
+        <nz-card nzTitle="Profile Information" [nzBodyStyle]="{ padding: '24px' }">
+
+          <form nz-form [formGroup]="accountForm" nzLayout="vertical">
+
+            <!-- Profile Information Section -->
+            <div class="profile-section">
+              <nz-form-item>
+                <nz-form-label>Email Address</nz-form-label>
+                <nz-form-control>
+                  <input
+                    nz-input
+                    formControlName="email"
+                    placeholder="Email address"
+                    readonly
+                    class="readonly-input" />
+                  <small class="field-help">Email address cannot be changed</small>
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>First Name</nz-form-label>
+                <nz-form-control [nzErrorTip]="getErrorMessage('firstName')">
+                  <input
+                    nz-input
+                    formControlName="firstName"
+                    placeholder="First name"
+                    [nzStatus]="isFieldInvalid('firstName') ? 'error' : ''" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>Last Name</nz-form-label>
+                <nz-form-control [nzErrorTip]="getErrorMessage('lastName')">
+                  <input
+                    nz-input
+                    formControlName="lastName"
+                    placeholder="Last name"
+                    [nzStatus]="isFieldInvalid('lastName') ? 'error' : ''" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-control>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    [nzLoading]="isProfileLoading"
+                    [disabled]="!isProfileFormValid() || !hasProfileChanges() || isProfileLoading"
+                    (click)="updateProfile()">
+                    <span nz-icon nzType="save"></span>
+                    Update Profile
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <nz-divider nzText="Change Password"></nz-divider>
+
+            <!-- Password Change Section -->
+            <div class="password-section">
+              <nz-form-item>
+                <nz-form-label nzRequired>Current Password</nz-form-label>
+                <nz-form-control [nzErrorTip]="getErrorMessage('currentPassword')">
+                  <input
+                    nz-input
+                    formControlName="currentPassword"
+                    placeholder="Enter your current password"
+                    type="password"
+                    [nzStatus]="isFieldInvalid('currentPassword') ? 'error' : ''" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>New Password</nz-form-label>
+                <nz-form-control [nzErrorTip]="getErrorMessage('newPassword')">
+                  <input
+                    nz-input
+                    formControlName="newPassword"
+                    placeholder="Enter your new password"
+                    type="password"
+                    [nzStatus]="isFieldInvalid('newPassword') ? 'error' : ''" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-label nzRequired>Confirm New Password</nz-form-label>
+                <nz-form-control [nzErrorTip]="getErrorMessage('confirmNewPassword')">
+                  <input
+                    nz-input
+                    formControlName="confirmNewPassword"
+                    placeholder="Confirm your new password"
+                    type="password"
+                    [nzStatus]="isFieldInvalid('confirmNewPassword') ? 'error' : ''" />
+                </nz-form-control>
+              </nz-form-item>
+
+              <nz-form-item>
+                <nz-form-control>
+                  <button
+                    nz-button
+                    nzType="primary"
+                    [nzLoading]="isPasswordLoading"
+                    [disabled]="!isPasswordFormValid() || isPasswordLoading"
+                    (click)="changePassword()">
+                    <span nz-icon nzType="lock"></span>
+                    Change Password
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+          </form>
+        </nz-card>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>
+
+<app-assistant></app-assistant>

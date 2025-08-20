@@ -1,0 +1,93 @@
+.account-layout {
+  min-height: 100vh;
+  min-width: 600px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .account-title {
+    margin: 0;
+    color: white;
+  }
+
+  .user-section {
+    .user-clickable {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .user-name {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: white;
+    }
+  }
+}
+
+.account-content {
+  max-width: 1200px;
+  margin: 50px auto 50px; // Added bottom margin
+  padding: 24px;
+}
+
+.clickable-logo {
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+
+  .form-container {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
+.field-help {
+  color: #8c8c8c;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    padding: 0 16px;
+
+    .account-title {
+      font-size: 18px;
+    }
+
+    .user-name {
+      display: none;
+    }
+  }
+
+  .content-wrapper {
+    .form-container {
+      max-width: 100%;
+    }
+  }
+
+  .account-content {
+    padding: 16px;
+  }
+}
